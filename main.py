@@ -50,7 +50,6 @@ def predict_image():
         # Reshape the image array to match the input shape expected by the model
         img_array = img_array.reshape(1, 784)
 
-
         # Make a prediction using the loaded model
         prediction = model.predict(img_array)
         print(prediction[0])
@@ -58,8 +57,9 @@ def predict_image():
         # Display the prediction in the label
         prediction_label.config(text=f"Predicted Digit: {prediction[0]}")
 
-        # Display the processed image
+        # Display the processed image with a larger size
         img = Image.fromarray((img_array[0] * 255).astype('uint8').reshape(28, 28))
+        img = img.resize((200, 200))  # Increase the size here
         img = ImageTk.PhotoImage(image=img)
         image_label.config(image=img)
         image_label.image = img
@@ -80,7 +80,7 @@ url_label.grid(column=0, row=0, sticky=tk.W)
 url_entry = ttk.Entry(frame, width=50)
 url_entry.grid(column=1, row=0, sticky=(tk.W, tk.E))
 
-predict_button = ttk.Button(frame, text="Predict Image", command=predict_image)
+predict_button = ttk.Button(frame, text="Predict Image", command=predict_image)  # Add padding here
 predict_button.grid(column=0, row=1, columnspan=2)
 
 image_label = ttk.Label(frame)
